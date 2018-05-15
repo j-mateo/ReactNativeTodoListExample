@@ -37,8 +37,7 @@ class TodoListContainer extends Component<Props> {
 
     if (taskContent === '') return;
 
-    const id = this.uuidv4();
-    const newTask = { title: taskContent, id, createdAt: new Date() } ;
+    const newTask = { title: taskContent } ;
 
     this.props.saveNewTask(newTask);
 
@@ -101,14 +100,6 @@ class TodoListContainer extends Component<Props> {
         {this.renderList()}
       </Screen>
     );
-  }
-
-  uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = (Math.random() * 16) | 0,
-        v = c == 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
   }
 }
 

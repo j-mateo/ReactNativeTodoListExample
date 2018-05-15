@@ -8,7 +8,7 @@ import {
 export const saveNewTask = todo =>
   ({
     type: SAVE_TODO,
-    todo
+    todo: { ...todo, id: uuidv4(), createdAt: new Date() }
   });
 
 export const toggleTodoStatus = (todo) => {
@@ -27,3 +27,12 @@ export const toggleShowCompleted = showCompleted =>
 
 
 export const clearData = () => ({ type: CLEAR_TODO });
+
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
