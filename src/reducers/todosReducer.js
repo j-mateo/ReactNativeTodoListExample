@@ -5,9 +5,10 @@ import {
   SAVE_TODO,
 } from "../actions/types";
 
+import { List } from 'immutable';
+
 const initialState = {
-  todoList: [],
-  allTodos: [],
+  allTodos: List(),
   showCompleted: false,
 };
 
@@ -22,19 +23,12 @@ const updateItem = (list, item) => {
   })
 };
 
-export const filteredTodo = (list, showCompleted) => {
-  if(showCompleted) return list;
-
-  return list.filter(item => !item.checked);
-};
-
 export default (state = initialState, action) => {
-  console.log({ state, action })
   switch (action.type) {
-    case SAVE_TODO: return { ...state, todoList: filteredTodo([action.todo].concat(state.todoList), state.showCompleted), allTodos: [action.todo].concat(state.todoList) };
-    case UPDATE_TODO: return { ...state, todoList: filteredTodo(updateItem(state.todoList, action.todo), state.showCompleted), allTodos: updateItem(state.todoList, action.todo) };
-    case CLEAR_TODO: return { ...state, todoList: [], loading: false };
-    case SHOW_COMPLETED: return { ...state, showCompleted: action.payload, todoList: filteredTodo(state.allTodos, action.payload)  };
+    case SAVE_TODO: return { ...state, allTodos: state.allTodos.insert(0, action.todo) };
+    case UPDATE_TODO: return { ...state, allTodos: updateItem(state.allTodos, action.todo) };
+    case CLEAR_TODO: return { ...state, loading: false, allTodos: List() };
+    case SHOW_COMPLETED: return { ...state, showCompleted: action.payload };
   }
 
   return state;

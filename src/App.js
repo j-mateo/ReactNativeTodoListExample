@@ -19,15 +19,22 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const composeEnhancers = composeWithDevTools({ realtime: true, port: 8000 });
 
-const store = createStore(persistedReducer, composeEnhancers(
-  applyMiddleware(thunk)
-));
+// const store = createStore(persistedReducer, composeEnhancers(
+//   applyMiddleware(thunk)
+// ));
+
+const store = createStore(reducers, applyMiddleware(thunk))
 
 const persistor = persistStore(store);
 
 export default class App extends Component<Props> {
 
   render() {
+    return (
+      <Provider store={store}>
+          <TodoListContainer />
+      </Provider>
+    );
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

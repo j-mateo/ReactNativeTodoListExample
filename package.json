@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@shoutem/ui": "^0.23.4",
+    "immutable": "^3.8.2",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "react": "^16.3.0-alpha.1",
@@ -15,7 +16,8 @@
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",

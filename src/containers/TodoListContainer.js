@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getVisibleTodos } from '../selectors';
+
 import {
   Screen,
   NavigationBar,
@@ -57,7 +59,7 @@ class TodoListContainer extends Component<Props> {
   }
 
   renderList() {
-    if (_.isEmpty(this.props.todoList))
+    if (this.props.todoList.isEmpty())
       return (
         <View style={emptyStyle}>
           <Text>All Done!</Text>
@@ -131,9 +133,8 @@ const styles = StyleSheet.create({
 const { emptyStyle, switchContainer } = styles;
 
 function mapStateToProps(state) {
-  console.log({ state })
   return {
-    todoList: state.todos.todoList,
+    todoList: getVisibleTodos(state),
     showCompleted: state.todos.showCompleted,
   }
 }
